@@ -1,0 +1,36 @@
+<div class='row mt-4'>
+    <div class='col-sm'>
+    </div>
+    <div class='col-sm'>
+        <h1>Edit Password</h1>
+
+        <%= form_with model: @user, url: password_reset_path(token: params[:token]) do |form| %>
+            <% if form.object.errors.any? %>
+                <div id="error_explanation">
+                    <h2><%= pluralize(form.object.errors.count, "error") %> prohibited this user from being saved:</h2>
+                    <ul>
+                        <% form.object.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+                <% end %>
+
+                <div class="field mb-2">
+                    <%= form.label :password, "New Password" %>
+                    <%= form.password_field :password, autocomplete: "off", class: 'form-control' %>
+                </div>
+
+                <div class="field mb-2">
+                    <%= form.label :password_confirmation %>
+                    <%= form.password_field :password, autocomplete: "off", class: 'form-control' %>
+                </div>
+
+                <div class="actions mt-4 text-center">
+                    <%= form.submit "Update password", class: 'btn btn-primary btn-block mb-4' %>
+                </div>
+        <% end %>
+    </div>
+    <div class='col-sm'>
+    </div>
+</div>
