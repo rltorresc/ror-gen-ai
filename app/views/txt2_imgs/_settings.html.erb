@@ -1,0 +1,61 @@
+<%= form_with model: ImageMaker.new, url: txt2_imgs_path, method: :post do |form| %>
+    <div class='row mb-2'>
+        <div class='col-2'>
+            <%= form.label :style_template, "Style", class: 'form-label' %>
+        </div>
+        <div class='col'>
+            <%= form.select :style_template, [], {},class: 'form-select' %>
+        </div>
+    </div>
+    <div class='row mb-2'>
+        <div class='col-2'>
+            <%= form.label :sd_model, "Model", class: 'form-label' %>
+        </div>
+        <div class='col'>
+            <%= form.select :sd_model, [], {},class: 'form-select' %>
+        </div>
+    </div>
+    <div class="mb-2">
+        <%= form.text_area :prompt, placeholder: "Prompt", size: "70x5", class: 'form-control' %>
+    </div>
+    <div class="mb-2">
+        <%= form.text_area :negative_prompt, placeholder: "Negative Prompt (optional)", size: "70x5", class: 'form-control' %>
+    </div>
+    <div class="mb-2">
+        <div class="btn-group w-100 d-flex" role="group" aria-label="choose the aspect ratio">
+            <%= form.radio_button :aspect_ratio, "3:2", class: "btn-check" %>
+            <%= form.label :aspect_ratio_32, class: "btn btn-outline-default" do %>
+                <%= image_tag 'rectangule.svg' %> 3:2
+            <%end%>
+            <%= form.radio_button :aspect_ratio, "1:1", class: "btn-check" %>
+            <%= form.label :aspect_ratio_11, class: "btn btn-outline-default" do %>
+                <%= image_tag 'square.svg' %> 1:1
+            <%end%>
+            <%= form.radio_button :aspect_ratio, "2:3", class: "btn-check" %>
+            <%= form.label :aspect_ratio_23, class: "btn btn-outline-default" do %>
+                <%= image_tag 'rectangule_vertical.svg' %> 2:3
+            <%end%>
+        </div>
+    </div>
+    <div class='mb-2'>
+        <%= form.submit "Generate", class: 'btn btn-primary' %>
+    </div>
+    <div class='row mb-2' data-controller="random-seed toggle">
+        <div class='col-2 pt-1'>
+            <%= form.label :seed, "Seed", class: 'form-label' %>
+        </div>
+        <div class='col-6'>
+            <%= form.number_field :seed, in: -1..9999999999, class: 'form-control', data: { random_seed_target: "inputField", toggle_target: "inputField"} %>
+        </div>
+        <div class='col-2'>
+            <button type="button" class="btn btn-sm" data-action="click->random-seed#populate"><%= image_tag 'rotate.svg' %></button>
+        </div>
+        <div class='col-2 pt-1'>
+            <%= form.check_box :random_seed, class: 'form-check-input', data: { toggle_target: "toggle", action: "change->toggle#toggle"}%>
+            <%= form.label :random_seed, class: 'form-check-label' do %>
+                <small>Rnd</small>
+            <%end%>
+        </div>
+    </div>
+    
+<%end%>
